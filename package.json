@@ -1,0 +1,19 @@
+{
+  "name": "node-crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Damir Ilyasov",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "1.0.0-rc.2",
+    "crawler": "1.2.0",
+    "fs": "0.0.1-security",
+    "request": "2.88.0",
+    "url-parse": "1.4.4"
+  }
+}
