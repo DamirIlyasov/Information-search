@@ -42,7 +42,7 @@ function addLinksToVisitList($body, baseUrl) {
     const href = $body(value).attr('href');
     if (href) {
       if (href.startsWith('http')) {
-        if (!LINKS_TO_VISIT.includes(href)) {
+        if (href.startsWith(`${baseUrl}/`) && !LINKS_TO_VISIT.includes(href)) {
           LINKS_TO_VISIT.push(href);
         }
       } else {
