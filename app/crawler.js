@@ -2,6 +2,7 @@ const request = require('request');
 const cheerio = require('cheerio');
 const UrlParser = require('url-parse');
 const fs = require('fs');
+const stemmer = require('stemmer');
 
 const INDEX_FILE_PATH = './app/resources/index.txt';
 const SITE_DATA_DIRECTORY_PATH = './app/resources/site-data';
@@ -42,7 +43,7 @@ function addLinksToVisitList($body, baseUrl) {
     const href = $body(value).attr('href');
     if (href) {
       if (href.startsWith('http')) {
-        if (!LINKS_TO_VISIT.includes(href)) {
+        if (href.startsWith(`${baseUrl}/`) && !LINKS_TO_VISIT.includes(href)) {
           LINKS_TO_VISIT.push(href);
         }
       } else {
@@ -63,8 +64,10 @@ function addPushListener(array, callback) {
 }
 
 function createFileWithSiteBody(number, body) {
-  const textBody = body.replace(/\s{2,}/g, ' ');
-  fs.writeFile(`${SITE_DATA_DIRECTORY_PATH}/${number}.txt`, textBody, (error) => {
+  const textBody = body.replace(/\s{2,}/g, ' ').replace(/[.,!?]/g, '');
+  let stemmedBody;
+  textBody.split(' ').forEach(word => stemmedBody += stemmer(word) + ' ');
+  fs.writeFile(`${SITE_DATA_DIRECTORY_PATH}/${number}.txt`, stemmedBody, (error) => {
     if (error) {
       throw error;
     }

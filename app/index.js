@@ -1,3 +1,3 @@
 const {startCrawl} = require('./crawler.js');
 
-startCrawl('<REPLACE WITH URL>', 10);
+startCrawl('https://github.com/', 1000);

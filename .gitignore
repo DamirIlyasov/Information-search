@@ -35,3 +35,5 @@ jspm_packages
 
 # Intellij IDEA
 .idea
+
+package-lock.json
